@@ -1,21 +1,26 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
 
 func main() {
 	fmt.Println("App started!")
-	http.HandleFunc("/", handleFunc())
+    http.HandleFunc("/say-hello", handleRequestFunc())
 	fmt.Println("App is listening 8080 port")
 	http.ListenAndServe(":8080", nil)
 }
 
-func handleFunc() func(w http.ResponseWriter, r *http.Request) {
+type ApiResponse struct {
+	Text string `json:"text"`
+}
+
+func handleRequestFunc() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		msg := "Hello world!"
-		w.Write([]byte(msg))
-		fmt.Println(msg)
-	}
+        response := ApiResponse{Text: "Hello from Golang!"}
+        w.Header().Set("Content-Type", "application/json")
+        json.NewEncoder(w).Encode(response)
+    }
 }
