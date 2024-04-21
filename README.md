@@ -4,7 +4,12 @@
 
 To run the project write command:
 
-### `go run .`
+### `go run .\cmd\.`
 
-Runs the app in the development mode.\
+Runs the app.\
 URL [http://localhost:8080](http://localhost:8080)
+
+
+### `go test .\...`
+
+Runs all tests.
